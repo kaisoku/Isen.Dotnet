@@ -57,5 +57,34 @@ Depuis le dossier racine:
 Ajouter le projet librairie:
 `dotnet add reference ..\Isen.Dotnet.library\Isen.Dotnet.Library.csproj`
 
+#Commit Git
+`git add .`
+`git commit -m "Test Project"`
 
+##Push du projet GitHub sur un repos distant
 
+Creer un projet sur le serveur Git de votre choix( GitHub, GitLab,..)
+L'url de mon repos
+https://github.com/kaisoku/Isen.Dotnet.git
+
+`git remote add origin https://github.com/kaisoku/Isen.Dotnet.git`
+`git push -u origin master`
+
+#Ajout d'un tag git
+Creer le tag dans le repos local
+`git tag v0.1`
+Pusher le tag dans le remote repo
+`git push origin v0.1`
+
+#Ajout d'un modele
+Dans le projet Library
+Creer un dossier Models/Implementation
+Creer une classe Person:
+    Id(int)
+    Name(string)
+    FirstName(string)
+    LastName(string)
+    BirthDate(DateTime)
+Creer une classe City:
+    Id(int)
+    Name(string)
