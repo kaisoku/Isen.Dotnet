@@ -88,3 +88,7 @@ Creer une classe Person:
 Creer une classe City:
     Id(int)
     Name(string)
+
+#Refactoring : extraction d'un BaseModel
+Les classes Person et City ont une partie de leur logique commune.
+Extraire ce qui est commun dans une classe abstraite
