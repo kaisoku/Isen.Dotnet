@@ -7,7 +7,7 @@ namespace Isen.Dotnet.ConsoleApp
     {
         static void Main(string[] args)
         {
-            string result =  Hello.Greet("Kail");
+            string result =  Hello.GreetUpper("Kail");
             Console.WriteLine(result);
         }
     }
