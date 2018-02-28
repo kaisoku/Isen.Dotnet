@@ -1,5 +1,5 @@
 using System;
-using Isen.Dotnet.Library.Base.BaseModel;
+using Isen.Dotnet.Library.Base;
 
 namespace Isen.Dotnet.Library.Models.Implementation
 {

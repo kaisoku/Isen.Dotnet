@@ -1,6 +1,6 @@
 using System;
 
-namespace Isen.Dotnet.Library.Base.BaseModel
+namespace Isen.Dotnet.Library.Base
 {
     public abstract class BaseModel
     {

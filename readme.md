@@ -92,3 +92,8 @@ Creer une classe City:
 #Refactoring : extraction d'un BaseModel
 Les classes Person et City ont une partie de leur logique commune.
 Extraire ce qui est commun dans une classe abstraite
+
+#Ajout  Repositories
+##CityRepositorie
+A la racine du projet Library : creer un dossier Repositories\InMemory
+Ajouter une classe InMemoryCityRepository
