@@ -97,3 +97,11 @@ Extraire ce qui est commun dans une classe abstraite
 ##CityRepositorie
 A la racine du projet Library : creer un dossier Repositories\InMemory
 Ajouter une classe InMemoryCityRepository
+Extraire l'interface de ce repo dans `Repositories/Interfaces/IInMemoryCityRepository.cs`  
+
+## Refactoring interface : extraire IBaseRepository
+Déplacer les 3 méthodes de l'interface vers IBaseRepository  
+
+## Refactoring Repository
+* Créer la classe abstraite Repositories/Base/_BaseRepository.cs  
+* Déplacer la logique de CityReposiory vers cette classe  

@@ -1,12 +1,7 @@
-using Isen.Dotnet.Library.Models.Implementation;
 using System.Collections.Generic;
+using Isen.Dotnet.Library.Models.Implementation;
 
 namespace Isen.Dotnet.Library.Repository.Interface
 {
-    
-  public interface ICityRepository
-    {
-        IList<City> GetAll();
-        City Single(int id);
-    }
+    public interface ICityRepository : IBaseRepository<City> {}
 }

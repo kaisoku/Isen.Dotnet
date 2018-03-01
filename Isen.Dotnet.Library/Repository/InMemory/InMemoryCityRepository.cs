@@ -1,14 +1,16 @@
-using Isen.Dotnet.Library.Models.Implementation;
 using System.Linq;
 using System.Collections.Generic;
+using Isen.Dotnet.Library.Models.Implementation;
+using Isen.Dotnet.Library.Repository.Interface;
+using Isen.Dotnet.Library.Repository.Base;
 
-namespace Isen.Dotnet.Library.Repository.IInMemory
+namespace Isen.Dotnet.Library.Repository.InMemory
 {
   
-    public class InMemoryCityRepository : ICityRepository
+    public class InMemoryCityRepository : BaseRepository<City>, ICityRepository
     {
         private IList<City> _cityCollection;
-        private IList<City> CityCollection
+        public override IList<City> ModelCollection
         {
             get
             {
@@ -25,11 +27,5 @@ namespace Isen.Dotnet.Library.Repository.IInMemory
                 return _cityCollection;
             }
         }
-
-        public IList<City> GetAll() => CityCollection;
-
-        public City Single(int id) => CityCollection.SingleOrDefault (c => c.Id == id);
-        public City Single(string name) => CityCollection.SingleOrDefault (c => c.Name == name);
-
     }
 }
