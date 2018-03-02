@@ -104,4 +104,8 @@ Déplacer les 3 méthodes de l'interface vers IBaseRepository
 
 ## Refactoring Repository
 * Créer la classe abstraite Repositories/Base/_BaseRepository.cs  
-* Déplacer la logique de CityReposiory vers cette classe  
+* Déplacer la logique de CityReposiory vers cette classe
+
+##Appliquer au modele Person
+Dupliquer ICityRepository vers IPersonRepository et adapter ce qui doit l'etre
+Dupliquer InMemoryCityRepository vers InMemoryPersonRepository

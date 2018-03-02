@@ -9,14 +9,14 @@ namespace Isen.Dotnet.Library.Repository.InMemory
   
     public class InMemoryCityRepository : BaseRepository<City>, ICityRepository
     {
-        private IList<City> _cityCollection;
-        public override IList<City> ModelCollection
+        private IList<City> _modelCollection;
+        public override IQueryable<City> ModelCollection
         {
             get
             {
-                if(_cityCollection == null)
+                if(_modelCollection == null)
                 {
-                    _cityCollection = new List<City>
+                    _modelCollection = new List<City>
                     {
                         new City{Id = 1, Name = "Toulon"},
                         new City{Id = 2, Name = "Toulouse"},
@@ -24,7 +24,7 @@ namespace Isen.Dotnet.Library.Repository.InMemory
                         new City{Id = 4, Name = "Marseille"}
                     };
                 }
-                return _cityCollection;
+                return _modelCollection.AsQueryable();
             }
         }
     }
