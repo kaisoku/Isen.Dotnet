@@ -7,9 +7,8 @@ using Isen.Dotnet.Library.Repository.Base;
 namespace Isen.Dotnet.Library.Repository.InMemory
 {
   
-    public class InMemoryCityRepository : BaseRepository<City>, ICityRepository
+    public class InMemoryCityRepository : BaseInMemoryRepository<City>, ICityRepository
     {
-        private IList<City> _modelCollection;
         public override IQueryable<City> ModelCollection
         {
             get
