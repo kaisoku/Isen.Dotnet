@@ -29,42 +29,50 @@ namespace Isen.Dotnet.ConsoleApp
             ICityRepository cityRepository = new InMemoryCityRepository();
             IPersonRepository personRepository = new InMemoryPersonRepository(cityRepository);
 
-            //Toutes les villes
+            //Etat initial
             foreach(var c in cityRepository.GetAll())
                 Console.WriteLine(c);
+            Console.WriteLine("-------------------");
+            //Ajouter une ville
+            var cannes =  new City { Name = "Cannes"};
+            cityRepository.Update(cannes);
+            foreach(var c in cityRepository.GetAll())
+                Console.WriteLine(c);
+            Console.WriteLine("-----------------");
+            //Mettre a jour une ville
+            var aubagne = cityRepository.Single("Aubagne");
+            if(aubagne != null){
+                aubagne.Name += " sur-mer";
+                cityRepository.Update(aubagne);
+                foreach(var c in cityRepository.GetAll())
+                    Console.WriteLine(c);
+                Console.WriteLine("----------------");
+            }
 
-            //Toutes les personnes
+            //Ajout et mise a jour dans une meme update
+            var lyon  =  new City{ Name = "Lyon"};
+            if(aubagne!=null) aubagne.Name = "Aubagne";
+            cityRepository.UpdateRange(lyon,aubagne);
+            foreach(var c in  cityRepository.GetAll()) 
+                Console.WriteLine(c);
+            Console.WriteLine("--------------------------");
+
+            //ajout et mis a jour d'une personne
+            var jonDoe = new Person{
+                FirstName = "Jon",
+                LastName = "DOE",
+                BirthDate = new DateTime(1975,8,1),
+                city = cityRepository.Single("Lyon")
+            };
+
+            var person2 = personRepository.Single(2);
+            person2.BirthDate = person2.BirthDate.Value.AddYears(-100);
+            personRepository.UpdateRange(jonDoe,person2);
             foreach(var p in personRepository.GetAll())
                 Console.WriteLine(p);
-            Console.WriteLine("----------------");
-            //Toutes les personnes nees apres 1970
-            var personBornAfter = 
-                personRepository.Find(p=>
-                p.BirthDate.Value.Year >= 1970);
-            foreach(var p in personBornAfter)
-                Console.WriteLine(p);
-            Console.WriteLine("----------------");
-            //toutes laes personnes avec age superieur a 40 ans
-            var personOlderThan = personRepository.Find(
-                p=> p.Age.HasValue && p.Age.Value >= 40);
-            foreach(var p in personOlderThan)
-                Console.WriteLine(p);
-            Console.WriteLine("-------------");
-            
-            //Toutes les villes qui contiennent un e
-            var citiesWithE = cityRepository.Find(c=>
-            //c.Name.Contains("e")
-            c.Name.IndexOf("e",StringComparison.CurrentCultureIgnoreCase)>=0);
-            foreach(var c in citiesWithE)
-                Console.WriteLine(c);
-            Console.WriteLine("----------");
+            Console.WriteLine("-----------------------");
 
-            //Effacer une ville
-            var aubagne = cityRepository.Single("Aubagne");
-            cityRepository.Delete(aubagne);
-            foreach(var c in cityRepository.GetAll()){
-                Console.WriteLine(c);
-            }
+
 
         }
     }
