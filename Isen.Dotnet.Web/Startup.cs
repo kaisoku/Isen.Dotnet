@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Isen.Dotnet.Library.Repository.InMemory;
+using Isen.Dotnet.Library.Repository.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +24,8 @@ namespace Isen.Dotnet.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            //services.AddScoped<ICityRepository, InMemoryCityRepository>();
+            services.AddSingleton<ICityRepository, InMemoryCityRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

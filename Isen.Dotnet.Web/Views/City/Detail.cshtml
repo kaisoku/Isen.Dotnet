@@ -1,0 +1,26 @@
+@{
+    ViewData["Title"] = "Detail City";
+}
+
+@model City
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Home <small>/City/Detail/</small></h1>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <form class="form-horizontal" asp-action="Detail">
+            <input type="hidden" value="@Model?.Id" asp-for="Id"/>
+            <div>
+                <label for="name" class="control-label">Nom de la ville</label>
+                <input type="text" class="form-control" id="name" placeholder="Nom de la ville" 
+                value="@Model?.Name" asp-for="Name"/>
+            </div>
+            <input type="submit" class="btn btn-primnary" value="Valider"/>
+            <a class="btn btn-default" asp-action="Index" asp-controller="City">Annuler</a>
+        </form>
+    </div>
+</div>
