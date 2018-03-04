@@ -14,5 +14,11 @@ namespace Isen.Dotnet.Library.Repository.Interface
         T Single(string name);
         void Delete(int id);
         void Delete(T model);
+        void DeleteRange(IEnumerable<T> models);
+        void DeleteRange(params T[] models);
+        //Update
+        void Update(T model);
+        void UpdateRange(IEnumerable<T> model);
+        void UpdateRange(params T[] model);
     }
 }

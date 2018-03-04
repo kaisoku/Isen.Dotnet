@@ -29,16 +29,26 @@ namespace Isen.Dotnet.Library.Repository.Base
             ModelCollection.FirstOrDefault(c => c.Name == name);
 
         //Methode de Delete
-        public virtual void Delete(int id){
-            foreach(var m in ModelCollection){
-                if(m.Id == id)
-                    ModelCollection.ToList().Remove(m);
-            }
-        }
+        public abstract void Delete(int id);
 
         public virtual void Delete(T model) =>
             Delete(model.Id);
 
+        public virtual void DeleteRange(IEnumerable<T> models){
+            foreach(var m in models) Delete(m);
+        }
+
+        
+        public virtual void DeleteRange(params T[] models) =>
+            DeleteRange(models.AsEnumerable());
+        //Update
+        public abstract void Update(T model);
+
+        public virtual void  UpdateRange(IEnumerable<T> model){
+            foreach(var m in model) Update(m);
+        }
+        public virtual void UpdateRange(params T[] model) => UpdateRange(model.AsEnumerable());
+        
     }
 
 }

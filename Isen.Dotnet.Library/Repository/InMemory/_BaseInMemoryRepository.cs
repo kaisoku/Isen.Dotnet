@@ -12,10 +12,26 @@ namespace Isen.Dotnet.Library.Repository.InMemory
         where T : BaseModel
     {
         protected IList<T> _modelCollection;
+        public int NewId()=>
+            GetAll().Max(m => m.Id) + 1;
         public override void Delete(int id){
             var list = ModelCollection.ToList();
             var modelToRemove = Single(id);
             list.Remove(modelToRemove);
+            _modelCollection = list;
+        }
+
+        public override void Update(T model){
+            if(model == null) return;
+            var list = ModelCollection.ToList();
+            if(model.IsNew){
+                model.Id = NewId();
+                list.Add(model);
+            }else{
+                var existing = list.FirstOrDefault(
+                    m => m.Id == model.Id);
+                existing = model;
+            }
             _modelCollection = list;
         }
        

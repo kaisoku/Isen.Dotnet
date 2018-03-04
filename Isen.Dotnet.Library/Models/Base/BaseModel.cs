@@ -11,6 +11,8 @@ namespace Isen.Dotnet.Library.Models.Base
         $"[Id={Id}] | {Name}";
 
         public override string ToString() =>Display;
+        
+        public bool IsNew => Id <= 0 ;
     }
         
 }

@@ -25,10 +25,12 @@ namespace Isen.Dotnet.Web.Controllers
         public IActionResult Detail(int? id){
             //Pas d'id > form vide (creation)
             if(id == null) return View();
+            //Recuperer la ville et la passer a la vue
             var model = _repository.Single(id.Value);
             return View(model);
         }
 
+        [HttpPost]
         public IActionResult Detail(City model){
             _repository.Update(model);
             return RedirectToAction("Index");
