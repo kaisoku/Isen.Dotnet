@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Isen.Dotnet.Web
 {
@@ -36,7 +37,11 @@ namespace Isen.Dotnet.Web
                 // du fichier de config
                 Configuration.GetConnectionString("DefaultConnection")));
                 
-            services.AddMvc();
+            services.AddMvc()
+                    .AddJsonOptions(options => {
+                        options.SerializerSettings.ReferenceLoopHandling =
+                            ReferenceLoopHandling.Ignore;
+                    } );
             //Injection des dependances
 
             //Injection des repo

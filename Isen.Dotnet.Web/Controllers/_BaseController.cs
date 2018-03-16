@@ -13,7 +13,7 @@ using Isen.Dotnet.Library.Models.Base;
 
 namespace Isen.Dotnet.Web.Controllers
 {
-    public abstract class BaseController<T> : Controller
+    public abstract partial class BaseController<T> : Controller
         where T : BaseModel
     {
         protected IBaseRepository<T> _repository;

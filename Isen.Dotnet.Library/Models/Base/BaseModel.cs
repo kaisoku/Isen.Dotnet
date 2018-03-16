@@ -1,4 +1,5 @@
 using System;
+using System.Dynamic;
 
 namespace Isen.Dotnet.Library.Models.Base
 {
@@ -13,6 +14,14 @@ namespace Isen.Dotnet.Library.Models.Base
         public override string ToString() =>Display;
         
         public bool IsNew => Id <= 0 ;
+
+        public virtual dynamic ToDynamic(){
+            dynamic response =  new ExpandoObject();
+            response.id = Id;
+            response.name = Name;
+            response.fetch = DateTime.Now;
+            return response;
+        }
     }
         
 }

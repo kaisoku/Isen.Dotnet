@@ -474,3 +474,79 @@ Ajouter le champ Person.CityId qui sert de clé étrangère
 Dans le formulaire de détail d'une personne,
 ajouter une liste déroulante, contenant toutes les villes,
 et permettant donc d'affecter la ville à la personne.
+
+# API RESTful (ou genre)
+
+##Objectif
+
+Mettre en place un schémas de routes (la forme des URL, systématique) et un ensemble de méthodes, qui permettront de réaliser les opérations CRUD.
+La combinaison des routes, et des verbes HTTP (GET, POST, PUT, DELETE) permettant de réaliser toutes les opérations CRUD sans aucune adhérence entre le "serveur" et le "client".
+
+Pour les Villes, nous allons créer l'API suivante :  
+
+
+GET `/api/city` Renvoie toutes les villes
+GET `/api/city/{id}` Renvoie la ville ayant l'id `{id}`
+
+POST `/api/city` Crée la ville passée dans le body de la                          requête HTTP POST
+PUT `/api/city/{id}` Met à jour la ville ayant l'id `{id}`
+                   avec les données passées dans le body
+                   de la requête HTTP PUT
+DELETE `/api/city/{id}` Efface la ville d'id `{id}`
+
+
+
+Et idem pour les personnes : 
+
+Pour les Villes, nous allons créer l'API suivante :
+
+
+GET `/api/person` Renvoie toutes les personnes
+GET `/api/person/{id}` Renvoie la person ayant l'id `{id}`
+
+POST `/api/person` Crée la person passée dans le body de la                          requête HTTP POST
+PUT `/api/person/{id}` Met à jour la person ayant l'id `{id}`
+                   avec les données passées dans le body
+                   de la requête HTTP PUT
+DELETE `/api/person/{id}` Efface la person d'id `{id}`
+
+##Implementation
+###Controleur API de Base
+Ajouter le qualifier partial à la classe BaseController.
+Créer une classe partielle BaseApiController en dupliquant puis vidant BaseController.  
+
+
+##GetAll
+
+Dans BaseApiController, ajouter une méthode GetAll, qui renvoie tout, mais en JSON
+
+Pour éviter le problème de références cycliques dans la sérialisation JSON, configurer les options du sérialiseur dans Startup.cs.
+
+Naviguer vers http://localhost:5000/api/city (sur Chrome, utiliser l'extension JSON Formatter).  
+
+
+##Contrôle de la sérialisation
+
+
+###/api/hello
+
+Cette api renvoie "hello" et l'heure sur le serveur.
+Utiliser le type dynamic et la classe ExpandoObject.  
+
+
+###Optimiser le schéma json
+
+Au niveau du BaseModel :  
+
+
+Ajouter une méthode (virtuelle) ToDynamic, qui renvoie un dynamic avec uniquement id et name.
+
+Override de ToDynamic dans Person et City pour ajouter les champs manquants.
+
+
+
+
+###GetById
+
+Coder dans BaseApiController la méthode GetById.
+Configurer son schéma de route : api/[controller]/{id}.  
