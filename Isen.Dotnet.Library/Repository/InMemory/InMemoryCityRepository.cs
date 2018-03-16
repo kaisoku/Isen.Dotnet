@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using Isen.Dotnet.Library.Models.Implementation;
 using Isen.Dotnet.Library.Repository.Interface;
 using Isen.Dotnet.Library.Repository.Base;
+using Microsoft.Extensions.Logging;
 
 namespace Isen.Dotnet.Library.Repository.InMemory
 {
   
     public class InMemoryCityRepository : BaseInMemoryRepository<City>, ICityRepository
     {
+       
+
+        public InMemoryCityRepository(
+            ILogger<InMemoryCityRepository> logger) : base(logger)
+        {
+        }
+
         public override IQueryable<City> ModelCollection
         {
             get

@@ -1,6 +1,6 @@
 @using Isen.Dotnet.Library.Models.Implementation;
 @{
-    ViewData["Title"] = "City";
+    ViewData["Title"] = "Villes";
 }
 @model IEnumerable<City>
 
@@ -8,6 +8,10 @@
     <div class="col-md-12">
         <h1>Home <small>/City/Index/</small></h1>
     </div>
+</div>
+<div class="row">
+    <a class="btn btn-default" asp-controller="City" 
+        asp-action="Detail">Ajouter une ville...</a>
 </div>
 <div class="row">
     <table class="table table-striped">
@@ -23,8 +27,8 @@
                     <td>@city.Id</td>
                     <td>@city.Name</td>
                     <td>
-                    <a asp-controller="City" asp-action="Detail" asp-route-id="@city.Id">Editer</a>&nbsp;|&nbsp;
-                    <a asp-controller="City" asp-action="Delete" asp-route-id="@city.Id">Supprimer</a>
+                        <a asp-controller="City" asp-action="Detail" asp-route-id="@city.Id">Editer</a>&nbsp;|&nbsp;
+                        <a asp-controller="City" asp-action="Delete" asp-route-id="@city.Id">Supprimer</a>
                     </td>
                 </tr>
             }

@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Isen.Dotnet.Library.Data;
 
 namespace Isen.Dotnet.Web
 {
@@ -14,7 +16,21 @@ namespace Isen.Dotnet.Web
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+            // Récupérer une instance de SeedData
+            // en appelant le moteur d'injection de dépendances
+            using (var scope = host.Services.CreateScope())
+            {
+                var seed = scope.ServiceProvider
+                    .GetService<SeedData>();
+                seed.DropDatabase();
+                seed.CreateDatabase();
+                seed.AddCities();
+                seed.AddPersons();
+            }
+            
+            host.Run();
+
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

@@ -1,0 +1,56 @@
+@using Isen.Dotnet.Library.Models.Implementation;
+@{
+    ViewData["Title"] = "Personne (détail)";
+}
+@model Person
+
+<div class="row">
+    <div class="col-md-12">
+        <h1>Détail d'une ville <small>/person/detail</small></h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <form class="form" asp-action="Detail">
+
+            <input type="hidden" 
+                value="@Model?.Id" asp-for="Id" />
+
+            <div>
+                <label for="FirstName" class="control-label">
+                    Prénom :
+                </label>
+                <input type="text" class="form-control"
+                    id="FirstName" placeholder="Prénom"
+                    value="@Model?.FirstName" asp-for="FirstName" />
+            </div>
+
+            <div>
+                <label for="LastName" class="control-label">
+                    Prénom :
+                </label>
+                <input type="text" class="form-control"
+                    id="LastName" placeholder="Nom"
+                    value="@Model?.LastName" asp-for="LastName" />
+            </div>
+
+            <div>
+                <label for="BirthDate" class="control-label">
+                    Date de naissance :
+                </label>
+                <input type="date" class="form-control"
+                    id="BirthDate" 
+                    value="@Model?.BirthDate?.ToString("yyyy-MM-dd")" 
+                    asp-for="BirthDate" />
+            </div>
+
+
+            <br />
+
+            <input type="submit" class="btn btn-primary"
+                value="Valider" />
+            <a class="btn btn-default" 
+                asp-controller="Person" asp-action="Index">Annuler</a>
+        </form>
+    </div>
+</div>

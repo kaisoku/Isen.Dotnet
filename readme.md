@@ -249,3 +249,112 @@ Dans la vue Detail.cshtml, préciser le type du modèle (City), et injecter les 
 Dans le controleur, ajouter une surcharge de Detail, avec City en paramètre, passé en Http POST.  
 
 ##Logging
+Dans le projet Web, classe Startup, méthode Configure :
+Injecter un provider de logging.
+
+En cas de namespace non trouvé, depuis le projet concerné, exécuter :
+dotnet add package Microsoft.Extensions.Logging  
+
+Dans le projet Library, BaseRepository :
+
+
+Ajouter un constructeur avec ILogger<BaseRepository<T>>
+
+Le stocker dans un membre protected
+
+
+
+Corriger les erreurs dues à l'ajout de ce constructeur : 
+
+
+Constructeur dans BaseInMemoryRepository
+
+Aussi dans InMemoryCityRepository 
+Aussi dans InMemoryPersonRepository 
+
+
+Injecter aussi le logger dans CityController (Web) :  
+
+
+Ajouter le ILogger dans la signature du constructeur
+Stocker dans un membre
+L'utiliser dans Detail (POST)
+
+
+# Utilisation d'une base de donnees
+
+## Framework ORM (Object RelationShip Mapping)
+Mapping object (classes) avec enregistrements (relationnelles)
+ou documents (no-sql)
+Entity Framework (EF)
+Versions 1 a 6, puis EF Core 1.0, 2.0.
+EF fournit un provider SQL server, mais aussi Oracle, MySQL, SQLite, Mongo, Cassandra
+
+## Mecanisme Code-First
+Code les classes (les modèles) et leurs relations.
+CodeFirst s'occupe de créer (ou mettre à jour) le schéma SQL.  
+
+Avec EF + Code first, on n'écrit pas une seule ligne de SQL.  
+
+## SQLite
+Sera utilisé pour cette démo. Ne pas utiliser en prod (perfs, accès concurrentiels). 
+
+##Ajout des packages NuGet necessaires
+Au niveau du projet Library, on va ajouter 2 packages :  
+
+
+Entity Framework
+Provider SQLite pour Entity Framework
+
+
+Exécuter ces commandes :
+`dotnet add package Microsoft.EntityFrameworkCore.Sqlite`
+`dotnet add package Microsoft.EntityFrameworkCore.Design`
+
+## Configuration
+Dans `appsettings.json` (racine projet web), ajouter :
+"ConnectionStrings": {
+  "DefaultConnection": "DataSource=.\\IsenWebApp.db"
+}
+
+##Ajouter une classe de contexte
+Dans le projet Library, ajouter un fichier `data/ApplicationDbContext.cs.`
+
+##Injecter le service EF / SQLite
+Dans `Startup` (web), injecter le service EF / SQLite
+dans la méthode `ConfigureServices()`.  
+
+##Mettre à jour et implémenter les DbRepositories
+#IBaseRepository
+
+Ajouter une méthode `Save()`
+
+Corriger les erreurs générées en implémentant 
+une méthode vide.
+
+
+
+
+#BaseDbContextRepository
+
+
+Dans Library/Repositories :
+
+
+Créer un fichier `DbContext/_BaseDbContextRepository.cs`
+
+Ajouter un constructeur et un champ pour injecter le contexte
+Override du `ModelCollection `
+Implémentation de `Delete`, `Update`, `Save`
+  
+##Concrétiser les DbContextXXXRepository
+Hériter de `BaseDbContextRepository` pour créer :
+
+
+
+`DbContextCityRepository`
+
+Le dupliquer pour faire `DbContextPersonRepository`
+
+##Modifier l'injection de dependances
+Dans Startup, changer les InMemory par des DbContext et remettre l'injection en mode Scoped

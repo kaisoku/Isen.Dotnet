@@ -1,17 +1,22 @@
 using System.Linq;
 using System.Collections.Generic;
 using Isen.Dotnet.Library.Models.Base;
-using Isen.Dotnet.Library.Models.Implementation;
-using Isen.Dotnet.Library.Repository.Interface;
 using Isen.Dotnet.Library.Repository.Base;
+using Microsoft.Extensions.Logging;
 
 namespace Isen.Dotnet.Library.Repository.InMemory
 {
-  
+
     public abstract class BaseInMemoryRepository<T> : BaseRepository<T>
         where T : BaseModel
     {
         protected IList<T> _modelCollection;
+
+        public BaseInMemoryRepository(
+            ILogger<BaseInMemoryRepository<T>> logger) : base(logger)
+        {
+        }
+
         public int NewId()=>
             GetAll().Max(m => m.Id) + 1;
         public override void Delete(int id){

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Isen.Dotnet.Library.Models.Implementation;
 using Isen.Dotnet.Library.Repository.Interface;
 using Isen.Dotnet.Library.Repository.Base;
+using Microsoft.Extensions.Logging;
 
 namespace Isen.Dotnet.Library.Repository.InMemory
 {
@@ -10,15 +11,15 @@ namespace Isen.Dotnet.Library.Repository.InMemory
     public class InMemoryPersonRepository : BaseInMemoryRepository<Person>, IPersonRepository
     {
         private ICityRepository _cityResository;
+        
 
-        public InMemoryPersonRepository(ICityRepository cityRepository)
+
+        public InMemoryPersonRepository(ILogger<InMemoryPersonRepository> logger,
+         ICityRepository cityRepository) : base(logger)
         {
             _cityResository = cityRepository;
         }
 
-        protected InMemoryPersonRepository()
-        {
-        }
 
         public override IQueryable<Person> ModelCollection
         {

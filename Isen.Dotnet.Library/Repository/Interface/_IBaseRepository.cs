@@ -20,5 +20,8 @@ namespace Isen.Dotnet.Library.Repository.Interface
         void Update(T model);
         void UpdateRange(IEnumerable<T> model);
         void UpdateRange(params T[] model);
+
+        //Save
+        void Save();
     }
 }

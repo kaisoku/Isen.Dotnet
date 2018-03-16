@@ -4,12 +4,19 @@ using System.Linq;
 using Isen.Dotnet.Library.Models.Base;
 using Isen.Dotnet.Library.Models.Implementation;
 using Isen.Dotnet.Library.Repository.Interface;
+using Microsoft.Extensions.Logging;
 
 namespace Isen.Dotnet.Library.Repository.Base
 {
     public abstract class BaseRepository<T>: IBaseRepository<T>
         where T : BaseModel
     {
+        protected readonly ILogger<BaseRepository<T>> Logger;
+
+
+        //Liste des objets du modeleseRepository<T>> logger;
+        public BaseRepository(
+        ILogger<BaseRepository<T>> logger) => Logger = logger;
         //Liste des objets du modele
         public virtual IQueryable<T> ModelCollection { get; }
         public virtual IEnumerable<T> GetAll() => ModelCollection;
@@ -48,7 +55,8 @@ namespace Isen.Dotnet.Library.Repository.Base
             foreach(var m in model) Update(m);
         }
         public virtual void UpdateRange(params T[] model) => UpdateRange(model.AsEnumerable());
-        
+        //Save
+        public virtual void Save(){}
     }
 
 }
