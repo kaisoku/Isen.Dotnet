@@ -18,7 +18,7 @@ namespace Isen.Dotnet.Library.Repository.Base
         public BaseRepository(
         ILogger<BaseRepository<T>> logger) => Logger = logger;
         //Liste des objets du modele
-        public virtual IQueryable<T> ModelCollection { get; }
+        public abstract IQueryable<T> ModelCollection { get; }
         public virtual IEnumerable<T> GetAll() => ModelCollection;
 
         //methode de listes(tout et query)
@@ -57,6 +57,10 @@ namespace Isen.Dotnet.Library.Repository.Base
         public virtual void UpdateRange(params T[] model) => UpdateRange(model.AsEnumerable());
         //Save
         public virtual void Save(){}
+
+        //Inclusions
+        public virtual IQueryable<T> Includes(
+            IQueryable<T> queryable) => queryable;
     }
 
 }

@@ -41,7 +41,7 @@ Ajouter le projet console: `dotnet sln add Isen.Dotnet.ConsoleApp\Isen.Dotnet.Co
 
 ##Commit Git
 `git add .`
-`git commit  - m "Console, lib, solution"`
+`git commit  -m "Console, lib, solution"`
 
 #Ajout d'un projet de test
 TDD= Test Driven Development
@@ -358,3 +358,119 @@ Le dupliquer pour faire `DbContextPersonRepository`
 
 ##Modifier l'injection de dependances
 Dans Startup, changer les InMemory par des DbContext et remettre l'injection en mode Scoped
+
+##Initialiser la base de donnees
+
+#Creer une classe de gestion de la base
+Dans Library/data, ajouter une classe `SeedData`.
+Injecter des dépendantes dans le constructeur.
+Dans Startup, ajouter la classe SeedData elle-même au container IoC (configuration de l'injection).  
+
+#Permettre la suppression / recréation
+
+
+Coder DropDatabase
+Coder CreateDatabase
+
+
+
+#Injecter des données de test (d'initialisation)
+
+
+Coder AddCities
+Coder AppPersons
+
+
+
+#Appeler les méthodes de SeedData
+
+Dans Program, main :  
+
+
+récupérer un scope d'injection de dépendances
+récupérer une instance de SeedData
+Appeler les méthodes codées
+
+
+Tester l'exécution.
+Télécharger `Sqlitebrowser` et ouvrir le fichier .db créé à la racine du projet web.
+Penser à la refermer systématiquement sinon pas de suppression ou écriture possible.  
+
+
+##Controllers
+
+
+#CityController
+
+Ajouter un appel à repo.Save() dans la méthode Detail en HTTP POST.
+Implémenter l'action Delete pour la route `/City/Delete/{id}`  
+
+
+#Généralisation des controllers
+
+A côté du city controller, créer un fichier _BaseController.
+Faire une classe abstraite `BaseController<T>`.
+Faire hériter `CityController` de cette classe.
+Déplacer les membres et méthodes vers la classe de base et
+adapter ce qui doit l'être.  
+
+
+#PersonController + view
+
+Dupliquer toute la logique associée au vue/controller City :
+
+
+Dupliquer l'item de menu
+Créer `PersonController`, qui hérite de `BaseController`
+Dupliquer le dossier `Views/City`
+Adapter la vue Index en modifiant les colonnes
+Adapter la vue Detail en complétant le formulaire
+
+
+
+##Relations
+
+
+#Inclusion de la ville d'une personne
+
+Dans `BaseRepository`, ajouter une méthode 
+virtuelle `IQueryable<T> Includes(IQueryable<T> queryable)`.
+Inclure son appel dans Single, Find, GetAll.
+Dans PersonRepository, override Includes afin d'inclure la ville.  
+
+
+#Relation réciproque
+
+Dans la classe `City` ajouter un champ PersonCollection.
+Ajouter un getter pour PersonCount.
+Inclure cette relation en overridant Includes dans CityRepository.
+Dans la vue des villes (liste), ajouter la colonne pour afficher le nombre de personnes d'une ville.  
+
+#Gestion des conflits d'intégrité référentielle lors d'un delete
+
+Si on efface une ville référencée par des personnes, 3 stratégies possibles :
+
+
+Effacer les personnes associées (CASCADE DELETE)
+Ne rien faire et empêcher l'effacement
+Mettre la relation à null (Set Null)
+
+
+
+Dans `ApplicationDbContext` et préciser, pour les 2 entités :
+
+
+les relations
+la stratégie au delete d'une ville
+
+
+
+Ajouter le champ Person.CityId qui sert de clé étrangère
+à la relation Person.City.  
+
+
+##Pouvoir affecter la ville d'une personne
+
+Dans le formulaire de détail d'une personne,
+ajouter une liste déroulante, contenant toutes les villes,
+et permettant donc d'affecter la ville à la personne.

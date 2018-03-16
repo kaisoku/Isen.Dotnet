@@ -20,9 +20,16 @@ namespace Isen.Dotnet.Library.Data
             
             // 2 - Configurer les mappings tables / classes
             builder.Entity<City>()
-                .ToTable("City");
+                .ToTable("City")
+                .HasMany(c=> c.PersonCollection)
+                .WithOne(p=> p.city)
+                .OnDelete(DeleteBehavior.SetNull);
+
             builder.Entity<Person>()
-                .ToTable("Person");
+                .ToTable("Person") 
+                .HasOne(p => p.city)
+                .WithMany(c => c.PersonCollection)
+                .HasForeignKey(p => p.cityId) ;
         }
     }
 

@@ -8,8 +8,11 @@ namespace Isen.Dotnet.Library.Models.Implementation
         public string FirstName { get;set; }
         public string LastName { get;set; }
         public City city { get;set; }
+        public int? cityId { get;set; }
         public DateTime? BirthDate { get;set; }
-        public int? Age => BirthDate != null ? (int?)((DateTime.Now - BirthDate.Value).Days/365):null;
+        public int? Age => BirthDate.HasValue ? 
+            (int?)((DateTime.Now - BirthDate.Value).Days/365.25):
+            null;
 
         private string _name;
 

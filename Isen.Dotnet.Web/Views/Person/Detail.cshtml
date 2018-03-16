@@ -1,7 +1,9 @@
 @using Isen.Dotnet.Library.Models.Implementation;
+@using Isen.Dotnet.Library.Repository.Interface;
 @{
     ViewData["Title"] = "Personne (détail)";
 }
+@inject ICityRepository _cityRepository;
 @model Person
 
 <div class="row">
@@ -43,6 +45,35 @@
                     value="@Model?.BirthDate?.ToString("yyyy-MM-dd")" 
                     asp-for="BirthDate" />
             </div>
+
+             <div>
+                <label for="CityId">
+                    Ville : 
+                </label>
+                @Html.DropDownListFor(
+                    // Champ du modèle (quelle ville faut-il sélectionner)
+                    // Le moteur Razor sait que p est une Personne
+                    // grace à @model Person
+                    p => p.cityId,
+                    // Remplissage de la liste
+                    new SelectList(
+                        // Liste des entités qui peuplent la liste
+                        // voir @using et @inject en haut de fichier
+                        _cityRepository.GetAll(), 
+                        // Champ de clé
+                        "Id", 
+                        // Champ d'affichage
+                        "Name"),
+                    // Item par défaut
+                    "<Sélectionnez une ville>",
+                    // Classe CSS
+                    // Le @ n'est pas celui de Razor mais celui du C#
+                    // Si on veut nommer une classe ou un champ avec un 
+                    // mot clé du langage, on le fait précéder d'un @
+                    new { @class = "form-control" })
+            </div>
+
+
 
 
             <br />
