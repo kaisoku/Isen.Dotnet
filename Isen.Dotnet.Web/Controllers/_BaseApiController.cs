@@ -35,6 +35,40 @@ namespace Isen.Dotnet.Web.Controllers
             var single = _repository.Single(id);
             return Json(single);
         }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        public virtual JsonResult Create([FromBody] T model)
+        {
+            _repository.Update(model);
+            _repository.Save();
+            return Json(model.ToDynamic());
+        }
+
+        [HttpPut]
+        [Route("api/[controller]/{id}")]
+        public virtual JsonResult Update(int? id, [FromBody] T model)
+        {
+            if (id == null || model == null || model.Id != id)
+                return Json(null);
+
+            _repository.Update(model);
+            _repository.Save();
+            return Json(model.ToDynamic());
+        }
+
+        [HttpDelete]
+        [Route("api/[controller]/{id}")]
+        public virtual IActionResult Remove(int? id)
+        {
+            if (id == null)
+                return BadRequest();
+            if (_repository.Single(id.Value) == null)
+                return NotFound();
+            _repository.Delete(id.Value);
+            _repository.Save();
+            return new NoContentResult();
+        }
     }
 
 }

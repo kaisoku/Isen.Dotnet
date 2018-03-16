@@ -548,5 +548,32 @@ Override de ToDynamic dans Person et City pour ajouter les champs manquants.
 
 ###GetById
 
-Coder dans BaseApiController la méthode GetById.
-Configurer son schéma de route : api/[controller]/{id}.  
+Coder dans `BaseApiController` la méthode GetById.
+Configurer son schéma de route : `api/[controller]/{id}.  `
+
+##Create
+
+Correspond à cette méthode : POST `/api/person`
+Ajouter une méthode Create pour créer un nouvel objet.
+Cet objet est passé dans le corps de la requête HTTP, en POST.
+Renvoyer l'objet créé.
+Télécharger et utiliser Postman pour tester des requêtes POST.  
+
+
+##Update
+
+Sur le même principe, implémenter l'update :
+
+
+id de l'entité en GET
+entité dans le corprs, en PUT
+Renvoyer l'entité
+Ne rien faire si l'id en GET ne correspond pas à l'id dans le corps
+
+
+
+##Delete
+
+Implémenter en utilisant le verbe HttpDelete.
+Utiliser le nom de méthode Remove (car Delete est déjà pris par l'API Web).
+Renvoyer HTTP 204 si c'est ok.  
